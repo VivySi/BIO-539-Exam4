@@ -1,5 +1,7 @@
 import sys
 
+# Trial: update
+
 def validate_sequence(sequence, k):
     if len(sequence) < k:
         return False
