@@ -1,4 +1,8 @@
-# import sys
+# here is the scipt about kmer_analyzer, which contains 5 functions: 
+# validate_sequence, update_kmer_count, count_kmers_with_context, write_results_to_file and main. 
+# use help() to see the docstring for each function, and use pytest to run the test file test_kmer_analyzer.py to see whether all the tests passed.
+
+
 import sys
 
 # first function: validate_sequence, here we check if the sequence is valid (length and characters)
@@ -18,21 +22,18 @@ def validate_sequence(sequence, k):
     bool
         True if the sequence is valid, False otherwise.
     """
+
     if len(sequence) < k:  # check if the sequence is shorter than k
-        # print("your sequence is too short or k is too large")
         return False
 
     if sequence.startswith('>'):  # check if the sequence starts with '>'
-        # print("your sequence starts with '>'")
         return False
 
     if k < 1 or not isinstance(k, int):  # check if k is less than 1 or not int
-        # print("k must be a positive integer")
         return False
 
     for nucleotide in sequence:
         if nucleotide not in 'ATCG':  # check whether there is an invalid character
-            # print("your sequence contains invalid characters")
             return False
 
     return True
@@ -60,18 +61,18 @@ def update_kmer_count(kmer_data, kmer, next_char):
     """
     
     if kmer not in kmer_data:
-        kmer_data[kmer] = {'count': 0, 'next_chars': {}} # here change 1 to 0
+        kmer_data[kmer] = {'count': 0, 'next_chars': {}} # here change 1 to 0, because we will add 1 to the count later, so we start with 0
     
     kmer_data[kmer]['count'] += 1
     
-    if next_char not in kmer_data[kmer]['next_chars']:
-        kmer_data[kmer]['next_chars'][next_char] = 0 
-    kmer_data[kmer]['next_chars'][next_char] += 1
+    if next_char not in kmer_data[kmer]['next_chars']: #if first kmer
+        kmer_data[kmer]['next_chars'][next_char] = 0 # same here, we start with 0
+    kmer_data[kmer]['next_chars'][next_char] += 1 # add 1 if we see the same next character again
 
     return kmer_data
 
 
-# third function:
+# third function: list all k-mers in the sequence and the number of different characters that follow them, and return a dictionary with the k-mer data
 
 def count_kmers_with_context(sequence, k):
     """
@@ -94,18 +95,18 @@ def count_kmers_with_context(sequence, k):
         }
     """
 
-    kmer_data = {}
+    kmer_data = {} # create an empty dictionary to store the k-mer data
     
-    for i in range(len(sequence) - k):
-        kmer = sequence[i:i+k]
-        next_char = sequence[i+k]
+    for i in range(len(sequence) - k): # loop through the sequence, we stop at len(sequence) - k 
+        kmer = sequence[i:i+k] # get the k-mer
+        next_char = sequence[i+k] # get the next character 
         
-        kmer_data = update_kmer_count(kmer_data, kmer, next_char)
+        kmer_data = update_kmer_count(kmer_data, kmer, next_char) # update the k-mer data 
     
     return kmer_data
 
 
-# fourth function:
+# fourth function: summary results and output file
 def write_results_to_file(kmer_data, output_filename):
     
     """
@@ -136,8 +137,8 @@ def write_results_to_file(kmer_data, output_filename):
             f.write(f"{kmer} {next_char_str}\n")
 
 
-# 5th function:
-def main(): # here define a main function 
+# 5th function: combine all function and define input.
+def main(): # here define a main function, combine all function into one 
     
     """
     Main entry point for the script.
