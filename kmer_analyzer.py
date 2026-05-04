@@ -137,7 +137,7 @@ def write_results_to_file(kmer_data, output_filename):
 
 
 # 5th function:
-def main():
+def main(): # here define a main function 
     
     """
     Main entry point for the script.
@@ -146,9 +146,9 @@ def main():
     computes k-mer statistics with context, and writes results to the output file.
     """
     
-    sequence_file = sys.argv[1]
-    k = int(sys.argv[2])
-    output_file = sys.argv[3]
+    sequence_file = sys.argv[1] # sequence_file in argurement number 1
+    k = int(sys.argv[2]) # k in argurement number 2
+    output_file = sys.argv[3] # output_file in argurement number 3
     
     print(f"Reading sequences from {sequence_file}...")
 

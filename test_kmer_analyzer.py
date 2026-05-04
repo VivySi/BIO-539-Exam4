@@ -4,6 +4,9 @@
 
 
 import pytest
+import tempfile
+from pathlib import Path
+import sys
 
 ## first test validate_sequence:
 # sequence shorter than k
@@ -11,7 +14,7 @@ import pytest
 # negative k, or k is not integer
 
 
-from kmer_analyzer import validate_sequence, update_kmer_count
+from kmer_analyzer import validate_sequence, update_kmer_count, count_kmers_with_context, write_results_to_file, main
 
 # test sequence shorter than k
 def test_validate_sequence_shorter_than_k():
@@ -99,3 +102,53 @@ def test_count_kmers_simple():
     assert result["CC"] == {'count': 1, 'next_chars': {'A': 1}}
     assert result["CA"] == {'count': 1, 'next_chars': {'T': 1}}
     
+
+
+#forth test write_results_to_file:
+# create a simple kmer data, to see whether we get expected output file
+# and whether the result listed in alphabetical order
+
+#import tempfile
+#from pathlib import Path
+
+def test_write_results_to_file_basic():
+    # make a simple kmer_data dict to test the output format
+    kmer_data = {
+        "AT": {"count": 3, "next_chars": {"G": 1, "C": 2}},
+        "TG": {"count": 1, "next_chars": {"A": 1}},
+    }
+
+    # use a temporary directory to avoid creating actual files on disk
+    with tempfile.TemporaryDirectory() as tmpdir:
+        out_path = Path(tmpdir) / "out.txt"
+
+        write_results_to_file(kmer_data, out_path)
+
+        with open(out_path, "r") as f:
+            lines = f.read().splitlines()
+
+    assert len(lines) == 2
+
+    # expected output format:
+    #    - AT: C:2 G:1
+    #    - CG: A:2
+    assert lines[0] == "AT C:2 G:1"
+    assert lines[1] == "TG A:1"
+
+#fifth test main function integration:
+# test the whole workflow with a simple input file, and check whether we get expected output file
+# import sys
+def test_main_integration(tmp_path):
+    # create a temporary input file with some sequences
+    input_path = tmp_path / "seqs.txt" # define the input file path
+    input_path.write_text("ATGC\nAT3X\nATGATC\n")  # some line with invalid character, will skip.
+    output_path = tmp_path / "out.txt" # define the output file path
+
+    # input arguments for main(): input file, k, output file
+    sys.argv = ["kmer_analyzer.py", str(input_path), "2", str(output_path)]
+
+    main()
+
+    assert output_path.exists()
+    content = output_path.read_text().strip().splitlines()
+    assert any(line.startswith("AT") for line in content)
