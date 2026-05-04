@@ -1,14 +1,22 @@
+# import sys
 import sys
 
-# Trial: update
-
+# first function: validate_sequence, here we check if the sequence is valid (length and characters)
 def validate_sequence(sequence, k):
-    if len(sequence) < k:
-        return False
-    for nucleotide in sequence:
-        if nucleotide in '1234567890':
+     if len(sequence) < k: # check if the sequence is shorter than k
+        # print("your sequence is too short or k is too large")
+         return False
+     if sequence.startswith('>'): # check if the sequence starts with '>'
+        # print("your sequence starts with '>'")
+         return False
+     if k < 1: # check if k is less than 1
+        # print("k must be a positive integer")
+        return False   
+     for nucleotide in sequence:
+        if nucleotide not in 'ATCG': # check whether there is an invalid character in the sequence.
+        # print("your sequence contains invalid characters")  
             return False
-    return True
+     return True
 
 def update_kmer_count(kmer_data, kmer, next_char):
     if kmer not in kmer_data:
