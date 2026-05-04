@@ -74,6 +74,26 @@ def update_kmer_count(kmer_data, kmer, next_char):
 # third function:
 
 def count_kmers_with_context(sequence, k):
+    """
+    Count all k-mers in the sequence and the number of different characters that follow them.
+
+    Parameters
+    ----------
+    sequence : str
+        Input DNA sequence.
+    k : int
+        Length of the k-mers.
+
+    Returns
+    -------
+    dict
+        A dictionary where each key is a k-mer (str) and each value is a dict:
+        {
+            'count': total occurrences of the k-mer (int),
+            'next_chars': { char (str): frequency (int), ... }
+        }
+    """
+
     kmer_data = {}
     
     for i in range(len(sequence) - k):
@@ -85,6 +105,7 @@ def count_kmers_with_context(sequence, k):
     return kmer_data
 
 
+# fourth function:
 def write_results_to_file(kmer_data, output_filename):
     sorted_kmers = sorted(kmer_data.keys())
     
@@ -100,6 +121,7 @@ def write_results_to_file(kmer_data, output_filename):
             f.write(f"{kmer} {next_char_str}\n")
 
 
+# 5th function:
 def main():
     sequence_file = sys.argv[1]
     k = int(sys.argv[2])

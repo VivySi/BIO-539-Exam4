@@ -71,7 +71,31 @@ def test_update_kmer_count_same_kmer_different_next_char():
     assert updated_kmer_data[kmer]['count'] == 3
     assert updated_kmer_data[kmer]['next_chars'][next_char] == 1
 
+#third test count_kmers_with_context:
+# NOTE: we don't test k is larger than length of sequence here, as it was tested in the first funtion
 
 
+# test with short, repeat, sample sequence, to see whether we get expected results
+# test sequence "ATGATCCATC" 
 
+def test_count_kmers_simple():
+    sequence = "ATGATCCATC" # repeat AT three times， with two different next characters.
+    k = 2
 
+    result = count_kmers_with_context(sequence, k)
+    
+    # maunally write the expected results for this sequence
+    assert "AT" in result
+    assert "TG" in result
+    assert "GA" in result
+    assert "TC" in result
+    assert "CC" in result
+    assert "CA" in result
+
+    assert result["AT"] == {'count': 3, 'next_chars': {'G': 1, 'C': 2}}
+    assert result["TG"] == {'count': 1, 'next_chars': {'A': 1}}
+    assert result["GA"] == {'count': 1, 'next_chars': {'T': 1}}
+    assert result["TC"] == {'count': 1, 'next_chars': {'C': 1}}
+    assert result["CC"] == {'count': 1, 'next_chars': {'A': 1}}
+    assert result["CA"] == {'count': 1, 'next_chars': {'T': 1}}
+    
