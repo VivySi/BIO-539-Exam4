@@ -1,4 +1,4 @@
-# BIO-539-Exam4
+# K-mer analyzer
 Here is a repository for BIO 539 Exam 4, which contains a python sciprt works as kmer analyzer `kmer_analyzer.py`, a pytest script `test_kmer_analyzer.py`, and of course, this readme. 
 
 There are five functions in `kmer_analyzer.py`, use `help()`to see docstrings for each fucntion.
