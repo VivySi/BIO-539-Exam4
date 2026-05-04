@@ -107,6 +107,21 @@ def count_kmers_with_context(sequence, k):
 
 # fourth function:
 def write_results_to_file(kmer_data, output_filename):
+    
+    """
+    Write k-mer summary results to a output file.
+
+    Each line of the output file has the format:
+        kmer char1:freq1 char2:freq2 ...
+
+    Parameters
+    ----------
+    kmer_data : dict
+        The k-mer statistics dictionary produced by count_kmers_with_context.
+    output_filename : str
+        name of the output text file.
+    """
+    
     sorted_kmers = sorted(kmer_data.keys())
     
     with open(output_filename, 'w') as f:
@@ -123,6 +138,14 @@ def write_results_to_file(kmer_data, output_filename):
 
 # 5th function:
 def main():
+    
+    """
+    Main entry point for the script.
+
+    Reads command-line arguments, validates sequences from the input file,
+    computes k-mer statistics with context, and writes results to the output file.
+    """
+    
     sequence_file = sys.argv[1]
     k = int(sys.argv[2])
     output_file = sys.argv[3]
