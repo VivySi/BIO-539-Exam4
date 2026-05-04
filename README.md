@@ -43,6 +43,7 @@ Pytest scirpt includes 10 test functions.
 First test validate_sequence:
 - sequence shorter than k;
 - sequence contain character that not "A","T","C","G" (uppercase only);
+- test sequence with smallcase characters;
 - negative k, or k is not integer.
 
 Second test update_kmer_count:
