@@ -9,4 +9,4 @@ change `result.txt` to your output file name.
 
 run the pytest scirpt in command line by `pytest kmer_analyzer.py`
 
-
+# work flow of `kmer_analyzer.py`
