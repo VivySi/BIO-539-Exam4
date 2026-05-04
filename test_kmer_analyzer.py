@@ -11,6 +11,7 @@ import sys
 ## first test validate_sequence:
 # sequence shorter than k
 # sequence contain character that not "A","T","C","G"
+# test sequence with smallcase characters
 # negative k, or k is not integer
 
 
@@ -32,6 +33,12 @@ def test_validate_sequence_invalid_characters():
     result = validate_sequence(sequence, k)
     assert result == False
 
+# test sequence with smallcase characters
+def test_validate_sequence_smallcase_characters():
+    sequence = "TaCgT"
+    k = 3
+    result = validate_sequence(sequence, k)
+    assert result == False
 
 # test negative k value
 def test_validate_sequence_negative_k():
