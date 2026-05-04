@@ -40,6 +40,25 @@ def validate_sequence(sequence, k):
 # second function: update_kmer_count, here we update the k-mer count and the next character count in the dictionary
 
 def update_kmer_count(kmer_data, kmer, next_char):
+    """
+    Update k-mer frequency and following-character counts.
+
+    Parameters
+    ----------
+    kmer_data : dict
+        Dictionary storing k-mer statistics. Keys are k-mer strings.
+        Values are dicts with keys 'count' (int) and 'next_chars' (dict).
+    kmer : str
+        The current k-mer to update.
+    next_char : str
+        The character that immediately follows this k-mer in the sequence.
+
+    Returns
+    -------
+    dict
+        The updated kmer_data dictionary.
+    """
+    
     if kmer not in kmer_data:
         kmer_data[kmer] = {'count': 0, 'next_chars': {}} # here change 1 to 0
     
