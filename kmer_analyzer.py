@@ -5,6 +5,7 @@ import sys
 def validate_sequence(sequence, k):
     """
     Check whether a DNA sequence is valid for k-mer analysis.
+
     Parameters
     ----------
     sequence : str
@@ -17,32 +18,41 @@ def validate_sequence(sequence, k):
     bool
         True if the sequence is valid, False otherwise.
     """
-     if len(sequence) < k: # check if the sequence is shorter than k
+    if len(sequence) < k:  # check if the sequence is shorter than k
         # print("your sequence is too short or k is too large")
-         return False
-     if sequence.startswith('>'): # check if the sequence starts with '>'
+        return False
+
+    if sequence.startswith('>'):  # check if the sequence starts with '>'
         # print("your sequence starts with '>'")
-         return False
-     if k < 1 or not isinstance(k, int): # check if k is less than 1
+        return False
+
+    if k < 1 or not isinstance(k, int):  # check if k is less than 1 or not int
         # print("k must be a positive integer")
-         return False   
-     for nucleotide in sequence:
-         if nucleotide not in 'ATCG': # check whether there is an invalid character in the sequence.
-            # print("your sequence contains invalid characters")  
-             return False
-     return True
+        return False
+
+    for nucleotide in sequence:
+        if nucleotide not in 'ATCG':  # check whether there is an invalid character
+            # print("your sequence contains invalid characters")
+            return False
+
+    return True
+
+# second function: update_kmer_count, here we update the k-mer count and the next character count in the dictionary
 
 def update_kmer_count(kmer_data, kmer, next_char):
     if kmer not in kmer_data:
-        kmer_data[kmer] = {'count': 1, 'next_chars': {}}
+        kmer_data[kmer] = {'count': 0, 'next_chars': {}} # here change 1 to 0
     
     kmer_data[kmer]['count'] += 1
     
     if next_char not in kmer_data[kmer]['next_chars']:
-        kmer_data[kmer]['next_chars'][next_char] = 0
+        kmer_data[kmer]['next_chars'][next_char] = 0 
     kmer_data[kmer]['next_chars'][next_char] += 1
 
     return kmer_data
+
+
+# third function:
 
 def count_kmers_with_context(sequence, k):
     kmer_data = {}
