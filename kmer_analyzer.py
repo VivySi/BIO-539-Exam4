@@ -3,19 +3,33 @@ import sys
 
 # first function: validate_sequence, here we check if the sequence is valid (length and characters)
 def validate_sequence(sequence, k):
+    """
+    Check whether a DNA sequence is valid for k-mer analysis.
+    Parameters
+    ----------
+    sequence : str
+        The input DNA sequence (should contain only A, T, C, G).
+    k : int
+        Length of the k-mer; must be a positive integer not greater than len(sequence).
+
+    Returns
+    -------
+    bool
+        True if the sequence is valid, False otherwise.
+    """
      if len(sequence) < k: # check if the sequence is shorter than k
         # print("your sequence is too short or k is too large")
          return False
      if sequence.startswith('>'): # check if the sequence starts with '>'
         # print("your sequence starts with '>'")
          return False
-     if k < 1: # check if k is less than 1
+     if k < 1 or not isinstance(k, int): # check if k is less than 1
         # print("k must be a positive integer")
-        return False   
+         return False   
      for nucleotide in sequence:
-        if nucleotide not in 'ATCG': # check whether there is an invalid character in the sequence.
-        # print("your sequence contains invalid characters")  
-            return False
+         if nucleotide not in 'ATCG': # check whether there is an invalid character in the sequence.
+            # print("your sequence contains invalid characters")  
+             return False
      return True
 
 def update_kmer_count(kmer_data, kmer, next_char):
