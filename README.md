@@ -38,7 +38,7 @@ CA T:3
 ```
 
 # Pytest scirpt
-Pytest scirpt includes 9 test functions.
+Pytest scirpt includes 10 test functions.
 
 First test validate_sequence:
 - sequence shorter than k;
