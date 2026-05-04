@@ -3,26 +3,46 @@ Here is a repository for BIO 539 Exam 4, which contains a python sciprt works as
 
 There are five functions in `kmer_analyzer.py`, use `help()`to see docstrings for each fucntion.
 
-# Usage
-run the kmer analyzer python sciprt (`kmer_analyzer.py`) in command line by:   
-`python kmer_analyzer.py sequence_file.txt k result.txt`
+## Usage
+Run the kmer analyzer python sciprt (`kmer_analyzer.py`) in command line by:   
+`python kmer_analyzer.py input_file k output_file`
 
-Change `sequence_file.txt` to your sequence file name;  
+Change `input_file` to your sequence file name;  
 Change `k` to your prefered substrings of length;  
-Change `result.txt` to your output file name.  
+Change `output_file` to your output file name.  
 
-Run the pytest scirpt in command line by `pytest kmer_analyzer.py`
+Example: 
+```{}
+python kmer_analyzer.py sequence_file.txt 2 result.txt
+```
 
-NOTE: 
-For the input file, the line with invalid character (not in "A, T, C, T") will be skipped and *Warning: Skipping sequence* will show up.  
-Remerber to remove ">" before each sequence, ">" will be seen as a invalid character.
+Run the pytest scirpt in command line by  
+```{}
+pytest kmer_analyzer.py
+```
+
+NOTE:  
+For the input file, each line should contain a DNA sequence (with character "A, T, C, T" uppercase only); the line with invalid character (not in "A, T, C, T") will be skipped and *Warning: Skipping sequence* will show up.  
+Remerber to remove `>` before each sequence, `>` will be seen as a invalid character.
+
+## Output:
+The output file is a text file. Each line has:
+- a k‑mer;
+- followed by one or more character:count pairs, separated by spaces.
+Lines are sorted alphabetically by k‑mer. Within each line, following characters are also listed in alphabetical order.
+
+Example: ` k=2 `
+```{}
+AT C:2 G:1
+CA T:3
+```
 
 # Pytest scirpt
 Pytest scirpt includes 9 test functions.
 
 First test validate_sequence:
 - sequence shorter than k;
-- sequence contain character that not "A","T","C","G";
+- sequence contain character that not "A","T","C","G" (uppercase only);
 - negative k, or k is not integer.
 
 Second test update_kmer_count:
